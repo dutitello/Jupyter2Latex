@@ -31,3 +31,38 @@ def df2table(df, caption='', label=''):
     # Now do the magic!
     # Use IPython display to print diferent formats
     display({'text/latex': latex, 'text/html': html}, raw=True)
+
+
+
+
+class latexfigure:
+    """
+
+     AINDA NÃO FUNCIONA!
+
+    A class to enumerate latex figures
+    """
+    def __init__(self, caption='', label=''):
+        # Everything must be strings
+        self.label = str(label)
+        self.caption = str(caption)
+
+        # Open latex figure tags 
+        # Since latex uses {} i couldn't use .format ...
+        latex = r'\begin{figure}[h!] \centering \caption{' + self.caption + '}'
+        
+        # HTML tags
+        html = f'<div name=\"{self.label}\" align=\"center\">{self.caption}<br>'
+
+        # Now do the magic!
+        # Use IPython display to print diferent formats
+        display({'text/latex': latex, 'text/html': html}, raw=True)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        # Close latex figure tags 
+        latex = r' \label{' + self.label + '}\end{figure}'
+        html = '</div>'
+        display({'text/latex': latex, 'text/html': html}, raw=True)
