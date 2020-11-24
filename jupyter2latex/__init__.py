@@ -28,9 +28,12 @@ def df2table(df, caption='', label=''):
     {htmldf}
     </div>'''
 
+    # Markdown format 
+    md = caption + '\n\n' + df.to_markdown() + '\n\n<br>\n\n'
+
     # Now do the magic!
     # Use IPython display to print diferent formats
-    display({'text/latex': latex, 'text/html': html}, raw=True)
+    display({'text/latex': latex, 'text/html': html, 'text/markdown': md}, raw=True)
 
 
 
